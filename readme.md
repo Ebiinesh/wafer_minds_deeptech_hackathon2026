@@ -1,177 +1,126 @@
-# DEFECTIQ --- Edge-AI Wafer Defect Classification (Carinthia Dataset)
+# DEFECTIQ — Edge-AI Wafer Defect Classification (Carinthia Dataset)
 
 ## 📌 Project Overview
 
-This repository presents an end-to-end Edge‑AI pipeline for
-semiconductor wafer defect classification, developed for automated,
-low‑latency inspection in smart manufacturing environments. The
-objective of this work is to replace slow, centralized, and manual
-inspection workflows with a data‑driven, on‑device artificial
-intelligence solution capable of identifying and categorizing wafer
-defects directly at the point of capture. By leveraging lightweight deep
-learning models and edge-compatible formats, the project demonstrates
-how modern AI techniques can be integrated into semiconductor
-fabrication quality control while remaining compatible with embedded
-deployment platforms such as NXP eIQ and i.MX RT devices.
+This repository presents an end-to-end Edge-AI pipeline for semiconductor wafer defect classification, developed to enable automated, low-latency inspection in smart manufacturing environments. Semiconductor fabrication processes generate a large number of high-resolution inspection images at multiple stages, and manual or centralized inspection approaches often struggle to scale due to latency, bandwidth, and infrastructure constraints. The objective of this project is to demonstrate how deep learning can be applied to classify wafer defects accurately while remaining suitable for future deployment on edge devices.
 
-The implementation covers the full workflow required in Phase‑1 of the
-hackathon: dataset curation and restructuring, model training using
-transfer learning, rigorous quantitative evaluation, and preparation of
-an edge‑ready ONNX model. All experiments were carried out in a
-cloud-based Google Colab environment, and a recorded Colab simulation
-video demonstrating the complete pipeline is attached in this repository
-for transparency and reproducibility.
+The scope of this work aligns with Phase-1 of the hackathon and focuses on dataset engineering, defect reclassification, model training using transfer learning, quantitative evaluation, and preparation of an edge-compatible model. All experimentation and development were performed in a cloud-based Google Colab environment, and a recorded Colab simulation video demonstrating the full workflow is attached for clarity and transparency.
 
-------------------------------------------------------------------------
+---
 
-## 📂 Dataset Description and Reorganization
+## 📂 Dataset Description and Reclassification
 
-For this work, we exclusively used the **Carinthia SEM wafer defect
-dataset**, a publicly available collection of high‑resolution scanning
-electron microscope (SEM) images that capture realistic defect patterns
-observed in semiconductor manufacturing. The dataset contains diverse
-visual characteristics such as micro‑scratches, surface texture
-variations, particulate contamination, and structural irregularities,
-making it highly relevant for industrial inspection research. The
-original dataset is available at:\
-https://zenodo.org/records/10715190
+This project exclusively uses the **Carinthia SEM wafer defect dataset**, a publicly available dataset containing scanning electron microscope (SEM) images of real semiconductor defects. The dataset captures fine-grained structural and surface-level defect patterns commonly observed in wafer fabrication, making it highly relevant for industrial inspection and yield analysis research.
 
-Rather than using the raw labels as provided, we **restructured and
-reclassified the dataset into eight application‑relevant categories**
-aligned with real fab inspection terminology and hackathon requirements.
-The final classes were: **Clean, Scratch, Crack, Particle,
-Line_Edge_Roughness, Pattern_Misalignment, Surface_Nonuniformity, and
-Other.** This mapping involved analyzing the original defect
-distributions, merging under‑represented categories into "Other," and
-redistributing highly frequent patterns into multiple semantically
-meaningful defect types.
+The original dataset is publicly available at:  
+**https://zenodo.org/records/10715190**
 
-The reorganized dataset was split into **Train and Test partitions in an
-80:20 ratio**, preserving class distribution as much as possible. The
-final dataset statistics were:
+Rather than directly using the raw labels, the dataset was **reclassified and reorganized into eight application-relevant defect categories** to better reflect real fab inspection scenarios and to satisfy hackathon requirements. The final classes used in this work are:
 
-**Training Set (3,849 images total):**\
-- Clean: 180\
-- Crack: 181\
-- Line_Edge_Roughness: 801\
-- Pattern_Misalignment: 801\
-- Surface_Nonuniformity: 801\
-- Particle: 231\
-- Scratch: 44\
-- Other: 810
+- Clean  
+- Scratch  
+- Crack  
+- Particle  
+- Line_Edge_Roughness  
+- Pattern_Misalignment  
+- Surface_Nonuniformity  
+- Other  
 
-**Test Set (962 images total):**\
-- Clean: 40\
-- Crack: 46\
-- Line_Edge_Roughness: 201\
-- Pattern_Misalignment: 201\
-- Surface_Nonuniformity: 201\
-- Particle: 58\
-- Scratch: 11\
-- Other: 204
+Rare or under-represented defect types were consolidated into the **Other** category, while highly frequent pattern-related defects were preserved as separate classes. This restructuring ensures meaningful classification while maintaining realistic industrial data characteristics.
 
-These numbers demonstrate a realistic, slightly imbalanced industrial
-dataset, where certain defect types (e.g., scratches) are naturally rare
-compared to more frequent structural variations such as line roughness
-or surface nonuniformity.
+The dataset was split into **Train and Test partitions using an 80:20 ratio**, preserving class distribution as much as possible.
 
-------------------------------------------------------------------------
+### Training Set Distribution (3,849 images total)
 
-## 🧠 Model Development and Training
+- Clean: 180  
+- Crack: 181  
+- Line_Edge_Roughness: 801  
+- Pattern_Misalignment: 801  
+- Surface_Nonuniformity: 801  
+- Particle: 231  
+- Scratch: 44  
+- Other: 810  
 
-Model development was performed using **PyTorch**, selecting a
-lightweight yet high‑performing convolutional backbone suitable for edge
-deployment. We adopted a **transfer learning strategy with
-EfficientNet‑B0**, modifying the final classification layer to output
-eight defect classes. This approach allowed us to leverage pretrained
-visual representations while adapting the model to the specific
-characteristics of SEM wafer images.
+### Test Set Distribution (962 images total)
 
-All images were converted to grayscale and resized to **224 × 224**,
-then replicated across three channels to maintain compatibility with
-standard CNN architectures. Training was conducted in two stages: (1) a
-feature‑extraction phase with the backbone frozen, followed by (2)
-fine‑tuning of deeper layers to improve domain adaptation. We used
-**Cross‑Entropy Loss** with class weighting to mitigate dataset
-imbalance and the **Adam optimizer** with a learning rate schedule for
-stable convergence.
+- Clean: 40  
+- Crack: 46  
+- Line_Edge_Roughness: 201  
+- Pattern_Misalignment: 201  
+- Surface_Nonuniformity: 201  
+- Particle: 58  
+- Scratch: 11  
+- Other: 204  
 
-Training and evaluation were conducted entirely in **Google Colab**,
-utilizing GPU acceleration to reduce runtime. The entire process---from
-dataset loading to model export---has been recorded in an attached
-**Google Colab simulation video**, enabling reviewers to visually trace
-every step of the pipeline.
+These statistics reflect a realistic semiconductor inspection dataset, where certain defect types are naturally rare while others appear more frequently due to process variations.
 
-------------------------------------------------------------------------
+---
 
-## 📊 Quantitative Results
+## 🧠 Model Development
 
-On the held‑out test set of 962 images, the model achieved strong
-classification performance across all eight classes. The key results
-were:
+Model development was carried out using **PyTorch**, adopting a transfer learning strategy to balance classification accuracy with computational efficiency. A lightweight convolutional backbone (EfficientNet-B0) was selected due to its strong performance-to-parameter ratio, making it suitable for future edge deployment.
 
--   **Overall Accuracy:** **94.3%**\
--   **Macro Average F1‑score:** 0.910\
--   **Weighted Average Precision:** 0.9464\
--   **Weighted Average Recall:** 0.9428\
--   **Weighted Average F1‑score:** 0.9437
+All SEM images were converted to grayscale and resized to **224 × 224** resolution. To maintain compatibility with pretrained CNN architectures, the single channel images were replicated across three channels. Training was performed in two stages: an initial feature extraction phase with frozen backbone layers, followed by fine-tuning to improve adaptation to the semiconductor defect domain. Cross-entropy loss with class weighting and the Adam optimizer were used to ensure stable convergence.
 
-Class‑wise performance showed that common defect categories such as
-**Line_Edge_Roughness, Pattern_Misalignment, and Surface_Nonuniformity**
-achieved F1‑scores above 0.94, indicating reliable discrimination. The
-**Particle** class also performed strongly with an F1‑score of 0.942. As
-expected in real-world datasets, the **Scratch** class---being
-rare---exhibited lower precision (0.579) but perfect recall (1.000),
-suggesting the model was conservative in detecting this defect type
-rather than missing instances.
+---
 
-A full confusion matrix and classification report are included in the
-repository, providing transparency into inter-class misclassifications
-and model behavior.
+## 📊 Quantitative Results and Analysis
 
-------------------------------------------------------------------------
+The trained model was evaluated on a held-out test set of 962 images across eight defect classes. The overall performance demonstrates strong generalization despite dataset imbalance.
 
-## 🛠 Tools, Frameworks, and Deployment Readiness
+**Overall Performance Metrics:**
+- **Accuracy:** **94.3%**
+- **Macro Average F1-score:** 0.910
+- **Weighted Average Precision:** 0.9464
+- **Weighted Average Recall:** 0.9428
+- **Weighted Average F1-score:** 0.9437
 
-The technical stack used in this project was designed with
-reproducibility, scalability, and edge compatibility in mind:
+Class-wise results indicate that structurally dominant defects such as **Line_Edge_Roughness**, **Pattern_Misalignment**, and **Surface_Nonuniformity** achieved F1-scores above 0.94, showing consistent discrimination capability. The **Particle** class also exhibited strong performance with an F1-score of 0.942. As expected in industrial datasets, the **Scratch** class, being rare, showed lower precision but perfect recall, indicating that the model successfully avoided missing critical defects.
 
-**Development Environment:**\
-- **Google Colab** (GPU-enabled cloud environment for training and
-experimentation)
+A full classification report and confusion matrix are included in this repository to provide detailed insight into model behavior across classes.
 
-**Programming Language:**\
-- **Python 3.10+**
+---
 
-**Deep Learning Framework:**\
-- **PyTorch** for model training, evaluation, and experimentation
+## 🛠 Tools, Frameworks, and Environment
 
-**Data Processing Libraries:**\
-- **Pandas** for CSV parsing and dataset organization\
-- **NumPy** for numerical operations\
-- **OpenCV / PIL** for image preprocessing and resizing\
-- **Scikit-learn** for metric computation and classification reports
+The complete development and evaluation pipeline was built using the following tools and frameworks:
 
-**Model & Edge Format:**\
-- The trained model was exported to **ONNX format**, ensuring
-compatibility with the **NXP eIQ Toolkit** and future deployment on
-**i.MX RT series microcontrollers**. This step positions the solution
-for real-time, on-device inference in smart semiconductor fabs.
+- **Development Environment:** Google Colab (GPU-accelerated)
+- **Programming Language:** Python 3.x
+- **Deep Learning Framework:** PyTorch
+- **Data Processing:** Pandas, NumPy
+- **Image Processing:** OpenCV / PIL
+- **Evaluation Metrics:** Scikit-learn
+- **Visualization:** Matplotlib, Seaborn
+- **Model Interoperability:** ONNX (for edge compatibility)
 
-**Visualization & Reporting:**\
-- **Matplotlib and Seaborn** were used to generate confusion matrices
-and performance visualizations.
+The trained model was exported in **ONNX format**, ensuring readiness for integration with the **NXP eIQ toolkit** and future deployment on **i.MX RT series microcontrollers**.
 
-By integrating these tools, the project establishes a complete pipeline
-from dataset engineering to edge-ready AI deployment, demonstrating both
-technical rigor and practical applicability for industrial semiconductor
-inspection.
+---
 
-------------------------------------------------------------------------
+## 📓 Code Reference (Google Colab)
 
-## 🎥 Colab Demonstration
+All dataset processing, training, evaluation, and model export code is provided in the following Google Colab notebook:
 
-A **Google Colab simulation video** is attached to this repository,
-illustrating the complete workflow: dataset loading, preprocessing,
-train-test split, model training, evaluation, and ONNX export. This
-serves as both documentation and validation of the experimental process.
+🔗 **Colab Notebook:**  
+https://colab.research.google.com/drive/1E6kSrdddTTrwZJwVnAr3F6gfQ6EZjZiP?usp=sharing
+
+This notebook serves as the primary reference for the complete implementation.
+
+---
+
+## 🎥 Google Colab Simulation Video
+
+A complete **Google Colab simulation video** demonstrating the full workflow — dataset preparation, reclassification, training, evaluation, and result generation — is available at:
+
+🎥 **Simulation Video:**  
+https://drive.google.com/file/d/1m2CR6tNh1pl29nN5pMSDvudTbNMbTQoC/view?usp=sharing
+
+This video provides visual validation of the experiments and enhances transparency for reviewers and collaborators.
+
+---
+
+## 👥 Team
+
+**Team Name:** DEFECTIQ  
+**Focus Area:** Edge-AI for Semiconductor Manufacturing
