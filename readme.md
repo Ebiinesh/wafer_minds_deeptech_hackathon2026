@@ -1,4 +1,4 @@
-# DEFECTIQ — Edge-AI Wafer Defect Classification (Carinthia Dataset)
+# Wafer Minds — Edge-AI Wafer Defect Classification (Carinthia Dataset)
 
 ## 📌 Project Overview
 
@@ -122,5 +122,5 @@ This video provides visual validation of the experiments and enhances transparen
 
 ## 👥 Team
 
-**Team Name:** DEFECTIQ  
+**Team Name:** Wafer Minds 
 **Focus Area:** Edge-AI for Semiconductor Manufacturing
