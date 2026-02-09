@@ -102,7 +102,7 @@ The trained model was exported in **ONNX format**, ensuring readiness for integr
 
 All dataset processing, training, evaluation, and model export code is provided in the following Google Colab notebook:
 
-🔗 **Colab Notebook:**  
+🔗 **Colab Notebook**  
 https://colab.research.google.com/drive/1E6kSrdddTTrwZJwVnAr3F6gfQ6EZjZiP?usp=sharing
 
 This notebook serves as the primary reference for the complete implementation.
@@ -113,14 +113,28 @@ This notebook serves as the primary reference for the complete implementation.
 
 A complete **Google Colab simulation video** demonstrating the full workflow — dataset preparation, reclassification, training, evaluation, and result generation — is available at:
 
-🎥 **Simulation Video:**  
+🎥 **Simulation Video**  
 https://drive.google.com/file/d/1m2CR6tNh1pl29nN5pMSDvudTbNMbTQoC/view?usp=sharing
 
 This video provides visual validation of the experiments and enhances transparency for reviewers and collaborators.
 
 ---
 
-## 👥 Team
+## 🛠️ Exported ONNX Model
 
-**Team Name:** Wafer Minds 
-**Focus Area:** Edge-AI for Semiconductor Manufacturing
+The trained model has been exported to **ONNX** format for cross-framework compatibility, inference optimization, and deployment in various runtimes (e.g., ONNX Runtime, TensorRT, etc.).
+
+🔗 **ONNX Model File**  
+https://drive.google.com/file/d/1UZwahQyMnELbh9_TrhNOE6htftZ1S9Ec/view?usp=sharing
+
+*(File name appears to be `wafer_defect_model.onnx`)*
+
+---
+
+This completes the set of resources:  
+- Full reproducible code in Colab  
+- Step-by-step walkthrough video  
+- Portable ONNX model export ready for deployment
+
+---
+
