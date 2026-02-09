@@ -101,7 +101,7 @@ The trained model was exported in **ONNX format**, ensuring readiness for integr
 
 ---
 
-## 📓 Code Reference (Google Colab)
+## Code Reference (Google Colab)
 
 All dataset processing, training, evaluation, and model export code is provided in the following Google Colab notebook:
 
@@ -123,7 +123,7 @@ This video provides visual validation of the experiments and enhances transparen
 
 ---
 
-## 🛠️ Exported ONNX Model
+## Exported ONNX Model
 
 The trained model has been exported to **ONNX** format for cross-framework compatibility, inference optimization, and deployment in various runtimes (e.g., ONNX Runtime, TensorRT, etc.).
 
