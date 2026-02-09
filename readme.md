@@ -136,5 +136,7 @@ This completes the set of resources:
 - Step-by-step walkthrough video  
 - Portable ONNX model export ready for deployment
 
+*Submitted for DeepTech Hackathon 2026.*
+
 ---
 
