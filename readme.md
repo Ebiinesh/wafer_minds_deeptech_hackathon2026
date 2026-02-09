@@ -7,7 +7,7 @@ This repository presents an end-to-end Edge-AI pipeline for semiconductor wafer 
 The scope of this work aligns with Phase-1 of the hackathon and focuses on dataset engineering, defect reclassification, model training using transfer learning, quantitative evaluation, and preparation of an edge-compatible model. All experimentation and development were performed in a cloud-based Google Colab environment, and a recorded Colab simulation video demonstrating the full workflow is attached for clarity and transparency.
 
 **Project Presentation (PDF)**  
-[Wafer Minds_PS01.pdf](./WaferMinds_PS01.pdf)
+[Wafer Minds_PS01.pdf](./Wafer Minds_PS01.pdf)
 
 ---
 
