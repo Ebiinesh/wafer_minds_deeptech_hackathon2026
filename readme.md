@@ -1,13 +1,13 @@
 # Wafer Minds - Edge-AI Wafer Defect Classification (Carinthia Dataset)
 
-## 📌 Project Overview
+## Project Overview
 
 This repository presents an end-to-end Edge-AI pipeline for semiconductor wafer defect classification, developed to enable automated, low-latency inspection in smart manufacturing environments. Semiconductor fabrication processes generate a large number of high-resolution inspection images at multiple stages, and manual or centralized inspection approaches often struggle to scale due to latency, bandwidth, and infrastructure constraints. The objective of this project is to demonstrate how deep learning can be applied to classify wafer defects accurately while remaining suitable for future deployment on edge devices.
 
 The scope of this work aligns with Phase-1 of the hackathon and focuses on dataset engineering, defect reclassification, model training using transfer learning, quantitative evaluation, and preparation of an edge-compatible model. All experimentation and development were performed in a cloud-based Google Colab environment, and a recorded Colab simulation video demonstrating the full workflow is attached for clarity and transparency.
 
 **Project Presentation (PDF)**  
-Wafer Minds_PS01.pdf
+[Wafer Minds_PS01.pdf](./WaferMinds_PS01.pdf)
 
 ---
 
