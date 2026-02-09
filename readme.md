@@ -1,4 +1,4 @@
-# Wafer Minds — Edge-AI Wafer Defect Classification (Carinthia Dataset)
+# Wafer Minds - Edge-AI Wafer Defect Classification (Carinthia Dataset)
 
 ## 📌 Project Overview
 
