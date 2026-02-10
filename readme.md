@@ -134,7 +134,8 @@ The trained model has been exported to **ONNX** format for cross-framework compa
 
 ---
 
-## Project Google Drive Folder**  
+## Project Google Drive Folder
+
 [Open Project Folder](https://drive.google.com/drive/folders/1Yoripvb_VOPmAt01qyUrkY0ZKxICiz_s?usp=sharing)
 
 ---
