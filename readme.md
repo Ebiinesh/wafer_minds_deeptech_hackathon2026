@@ -128,7 +128,7 @@ This video provides visual validation of the experiments and enhances transparen
 The trained model has been exported to **ONNX** format for cross-framework compatibility, inference optimization, and deployment in various runtimes (e.g., ONNX Runtime, TensorRT, etc.).
 
 🔗 **ONNX Model File**  
-https://drive.google.com/file/d/1UZwahQyMnELbh9_TrhNOE6htftZ1S9Ec/view?usp=sharing
+[https://drive.google.com/file/d/1UZwahQyMnELbh9_TrhNOE6htftZ1S9Ec/view?usp=sharing](https://drive.google.com/drive/folders/1_yRfhZ8glCu1s9-ywj0VjqI1mwEMGA7Q?usp=sharing)
 
 *(File name appears to be `wafer_defect_model.onnx`)*
 
