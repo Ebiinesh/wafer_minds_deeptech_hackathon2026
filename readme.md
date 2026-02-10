@@ -132,6 +132,9 @@ The trained model has been exported to **ONNX** format for cross-framework compa
 
 *(File name appears to be `wafer_defect_model.onnx`)*
 
+🔗 **Project Google Drive Folder**  
+[Open Project Folder](https://drive.google.com/drive/folders/1Yoripvb_VOPmAt01qyUrkY0ZKxICiz_s?usp=sharing)
+
 ---
 
 This completes the set of resources:  
